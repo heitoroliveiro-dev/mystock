@@ -2,7 +2,7 @@
 
 O sistema seguirá a arquitetura MVC, com as seguintes camadas:
 
-- **Camada de apresentação**: Desenvolvida com HTML, Tailwind CSS e Vue.js, responsável pela interface do usuário e interação.
+- **Camada de apresentação**: Desenvolvida com HTML, Tailwind CSS e JavaScript, responsável pela interface do usuário e interação.
 
 - **Camada de Aplicação**: Responsável por receber as requisições do usuário, interagir com a camada de domínio e retornar as respostas.
 
@@ -22,4 +22,4 @@ O sistema seguirá a arquitetura MVC, com as seguintes camadas:
 
 - **Cloud**: Verificar opções sem custo
 
-- **Frontend**: HTML, TailwindCSS e Vue.js
+- **Frontend**: HTML, TailwindCSS e JavaScript
