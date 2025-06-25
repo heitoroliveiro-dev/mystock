@@ -1,53 +1,144 @@
 @model IEnumerable<MyStockProdutos.Models.Produto>
 
-    @{
-        ViewData["Title"] = "Produtos";
-    }
+@{
+    // Define o título da página
+    ViewData["Title"] = "Produtos";
+}
 
-    <h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1>
+<br>
+<p>
+    <!-- Botão para criar um novo produto -->
+    <a asp-action="Create" class="btn btn-primary">Novo Produto</a>
+</p>
 
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Novo Produto</a>
-    </p>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <!-- Cabeçalhos da tabela de produtos -->
+                <th>Código do Produto</th>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Unidade de medida</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+        <tbody>
+            @foreach (var item in Model){
                 <tr>
-                    <th>Código do Produto</th>
-                    <th>Nome</th>
-                    <th>Marca</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
-                    <th>Status</th>
-                    <th>Ações</th>
+                    <!-- Exibe o ID do produto -->
+                    <td>@item.Id</td>
+                    <!-- Exibe o nome do produto -->
+                    <td>@item.Nome</td>
+                    <!-- Exibe a marca do produto -->
+                    <td>@item.Marca</td>
+                    <!-- Exibe o preço de venda formatado como moeda -->
+                    <td>@item.PrecoVenda.ToString("C")</td>
+                    <!-- Exibe a quantidade em estoque -->
+                    <td>@item.QuantidadeEstoque</td>
+                    <!-- Exibe a Unidade de medida -->
+                    <td>@item.UnidadeMedida</td>
+                    <!-- Exibe o status do estoque (baixo ou ok) -->
+                    <td>
+                        @if (item.EstoqueBaixo){
+                            <span class="badge bg-warning">Estoque baixo</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">OK</span>
+                        }
+                    </td>
+                    <!-- Botões de ação: Editar (com modal), Características (detalhes direto), Deletar (com modal) -->
+                    <td>
+                        <!-- Botão para abrir o modal de confirmação de edição #modalDeletar-->
+                        <button type="button"
+                                class="btn btn-sm btn-outline-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalEditar"
+                                data-id="@item.Id">Editar</button>
+                        <!-- Link direto para a view de detalhes do produto -->
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Características</a>
+                        <!-- Botão para abrir o modal de confirmação de deleção -->
+                        <button type="button"
+                                class="btn btn-sm btn-outline-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalDeletar"
+                                data-id="@item.Id">Deletar</button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model){
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.Nome</td>
-                        <td>@item.Marca</td>
-                        <td>@item.PrecoVenda</td>
-                        <td>@item.QuantidadeEstoque</td>
-                        <td>
-                            
-                                @if (item.EstoqueBaixo){
-                                    <span class="badge bg-warning">Estoque baixo</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-success">OK</span>
-                                }
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Editar</a>
-                            <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Características</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Deletar</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!--MODAIS MOCADOS-->
+<!-- Modal de confirmação para edição de produto -->
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarLabel">Confirmação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        Deseja mesmo editar este produto?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <!-- Link dinâmico para a tela de edição, preenchido via JavaScript -->
+        <a id="btnConfirmarEditar" class="btn btn-primary" href="#">Sim, editar</a>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal de confirmação para deleção de produto -->
+<div class="modal fade" id="modalDeletar" tabindex="-1" aria-labelledby="modalDeletarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDeletarLabel">Confirmação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar este produto?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <!-- Link dinâmico para deletar o produto, preenchido via JavaScript -->
+        <a id="btnConfirmarDeletar" class="btn btn-danger" href="#">Sim, deletar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts{
+    <script>
+        // Script para preencher o link do modal de edição com o ID do produto selecionado
+        var modalEditar = document.getElementById('modalEditar');
+        modalEditar.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var link = document.getElementById('btnConfirmarEditar');
+            link.href = '/Produto/Edit/' + id;
+        });
+
+        // Script para preencher o link do modal de deleção com o ID do produto selecionado
+        var modalDeletar = document.getElementById('modalDeletar');
+        modalDeletar.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var link = document.getElementById('btnConfirmarDeletar');
+            link.href = '/Produto/Delete/' + id;
+        });
+
+        // DICA: Para adicionar novos modais ou ações, siga o padrão acima.
+        // Para adicionar novos campos ou funcionalidades, altere o foreach e os modais conforme necessário.
+        // Para alterar o layout, utilize as classes do Bootstrap ou personalize conforme o padrão do projeto.
+    </script>
+}
