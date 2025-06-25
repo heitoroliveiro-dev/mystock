@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 
-namespace MyStock.Models
+namespace MyStockProdutos.Models
 {
 
     public enum UnidadeMedida
