@@ -1,67 +1,78 @@
 @model MyStockProdutos.Models.Produto
 @{
-    ViewData["Title"] = "Criar Produto";
+    ViewData["Title"] = "Editar Produto";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 <br>
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-6">
-        <form asp-action="Create">
+        <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
+            <!--Campo oculto para o ID-->
+            <input type="hidden" asp-for="Id"/>
+
+            <!--Nome-->
             <div class="form-group mb-3">
                 <label asp-for="Nome" class="control-label">Nome</label>
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
+
+            <!--Marca-->
             <div class="form-group mb-3">
                 <label asp-for="Marca" class="control-label">Marca</label>
-                <input asp-for="Marca" class="form-control" />
+                <input asp-for="Marca" class="form-control"/>
                 <span asp-validation-for="Marca" class="text-danger"></span>
             </div>
-            
+
+            <!--Descricao-->
             <div class="form-group mb-3">
                 <label asp-for="Descricao" class="control-label">Descrição</label>
-                <textarea asp-for="Descricao" class="form-control" rows="3"></textarea>
+                <input asp-for="Descricao" class="form-control"/>
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
-            
-            <!-- Preço de compra -->
+
+            <!--Preco compra-->
             <div class="form-group mb-3">
                 <label asp-for="PrecoCompra" class="control-label">Preço de compra</label>
-                <input asp-for="PrecoCompra" class="form-control" type="number" step="0.01" />
-                <span asp-validation-for="PrecoCompra" class="text-danger"></span>
+                <input asp-for="PrecoCompra" class="form-control" type="number" step="0.01"/>
+                <span asp-validation-for="PrecoCompra" class="text-danger" step="0.01"></span>
             </div>
 
-            <!-- Preço de venda -->
+            <!--Preco venda-->
             <div class="form-group mb-3">
-                <label asp-for="PrecoVenda" class="control-label">Preço de venda</label>
-                <input asp-for="PrecoVenda" class="form-control" type="number" step="0.01" />
+                <label asp-for="PrecoVenda" class="control-label" >Preço de venda</label>
+                <input asp-for="PrecoVenda" class="form-control" type="number" step="0.01"/>
                 <span asp-validation-for="PrecoVenda" class="text-danger"></span>
             </div>
-            
+
+            <!--Quantidade-->
             <div class="form-group mb-3">
                 <label asp-for="QuantidadeEstoque" class="control-label">Quantidade</label>
-                <input asp-for="QuantidadeEstoque" class="form-control" type="number" />
+                <input asp-for="QuantidadeEstoque" class="form-control"/>
                 <span asp-validation-for="QuantidadeEstoque" class="text-danger"></span>
             </div>
-            
+
+            <!--Unidade medida-->
             <div class="form-group mb-3">
                 <label asp-for="UnidadeMedida" class="control-label">Unidade de medida</label>
                 <select asp-for="UnidadeMedida" class="form-control" asp-items="ViewBag.Unidades"></select>
                 <span asp-validation-for="UnidadeMedida" class="text-danger"></span>
             </div>
-            
+
+            <!--Estoque minimo-->
             <div class="form-group mb-3">
                 <label asp-for="EstoqueMinimo" class="control-label">Estoque mínimo</label>
-                <input asp-for="EstoqueMinimo" class="form-control" type="number" />
+                <input asp-for="EstoqueMinimo" class="form-control"/>
                 <span asp-validation-for="EstoqueMinimo" class="text-danger"></span>
             </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Criar" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Voltar para Lista</a>
+
+            <!--Botões de confirmar e voltar-->
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success">Salvar alterações</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>

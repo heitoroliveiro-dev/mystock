@@ -1,0 +1,54 @@
+@model MyStockProdutos.Models.Produto
+
+@{
+    ViewData["Title"] = "Detalhes do Produto";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Código do Produto</dt>
+    <dd class="col-sm-9">@Model.Id</dd>
+
+    <dt class="col-sm-3">Nome</dt>
+    <dd class="col-sm-9">@Model.Nome</dd>
+
+    <dt class="col-sm-3">Marca</dt>
+    <dd class="col-sm-9">@Model.Marca</dd>
+
+    <dt class="col-sm-3">Descrição</dt>
+    <dd class="col-sm-9">@Model.Descricao</dd>
+
+    <dt class="col-sm-3">Preço de Compra</dt>
+    <dd class="col-sm-9">@Model.PrecoCompra.ToString("C")</dd>
+
+    <dt class="col-sm-3">Preço de Venda</dt>
+    <dd class="col-sm-9">@Model.PrecoVenda.ToString("C")</dd>
+
+    <dt class="col-sm-3">Quantidade em Estoque</dt>
+    <dd class="col-sm-9">@Model.QuantidadeEstoque</dd>
+
+    <dt class="col-sm-3">Unidade de Medida</dt>
+    <dd class="col-sm-9">@Model.UnidadeMedida</dd>
+
+    <dt class="col-sm-3">Estoque Mínimo</dt>
+    <dd class="col-sm-9">@Model.EstoqueMinimo</dd>
+
+    <dt class="col-sm-3">Data de Cadastro</dt>
+    <dd class="col-sm-9">@Model.DataCadastro.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-3">Status do Estoque</dt>
+    <dd class="col-sm-9">
+        @if (Model.EstoqueBaixo)
+        {
+            <span class="badge bg-warning">Estoque baixo</span>
+        }
+        else
+        {
+            <span class="badge bg-success">OK</span>
+        }
+    </dd>
+</dl>
+
+<a asp-action="Index" class="btn btn-secondary">Voltar para Lista</a>

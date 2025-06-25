@@ -99,6 +99,8 @@ namespace MyStockPedidos.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Unidades = new SelectList(Enum.GetValues(typeof(UnidadeMedida)));
+
             return View(produto);
         }
 
@@ -122,6 +124,7 @@ namespace MyStockPedidos.Controllers
                 {
                     return NotFound();
                 }
+                ViewBag.Unidades = new SelectList(Enum.GetValues(typeof(UnidadeMedida)));
 
                 // Atualiza as propriedades do produto existente com os valores do produto editado
                 produtoExistente.Nome = produto.Nome;
@@ -135,6 +138,8 @@ namespace MyStockPedidos.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Unidades = new SelectList(Enum.GetValues(typeof(UnidadeMedida)));
+
             return View(produto);
         }
 
