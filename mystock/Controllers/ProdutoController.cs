@@ -1,4 +1,6 @@
+using System.ComponentModel.Design;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyStockPedidos.Models;
 using MyStockProdutos.Models;
 
@@ -61,6 +63,7 @@ namespace MyStockPedidos.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Unidades = new SelectList(Enum.GetValues(typeof(UnidadeMedida)));
             return View();
         }
 
@@ -78,7 +81,10 @@ namespace MyStockPedidos.Controllers
                 _produtos.Add(produto);
                 return RedirectToAction(nameof(Index));
             }
+            
+            ViewBag.Unidades = new SelectList(Enum.GetValues(typeof(UnidadeMedida)));
             return View(produto);
+
         }
 
         // Get: Produto/Edit/5 (Edição de um produto)

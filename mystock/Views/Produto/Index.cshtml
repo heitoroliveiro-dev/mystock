@@ -14,21 +14,23 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
-                    <th>@Html.DisplayNameFor(model => model.Marca)</th>
-                    <th>@Html.DisplayNameFor(model => model.PrecoVenda)</th>
-                    <th>@Html.DisplayNameFor(model => model.QuantidadeEstoque)</th>
-                    <th>Status Estoque</th>
+                    <th>Código do Produto</th>
+                    <th>Nome</th>
+                    <th>Marca</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Status</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model){
                     <tr>
-                        <td>@Html.DisplayNameFor(modelItem => item.Nome)</td>
-                        <td>@Html.DisplayNameFor(modelItem => item.Marca)</td>
-                        <td>@Html.DisplayNameFor(modelItem => item.PrecoVenda)</td>
-                        <td>@Html.DisplayNameFor(modelItem => item.QuantidadeEstoque)</td>
+                        <td>@item.Id</td>
+                        <td>@item.Nome</td>
+                        <td>@item.Marca</td>
+                        <td>@item.PrecoVenda</td>
+                        <td>@item.QuantidadeEstoque</td>
                         <td>
                             
                                 @if (item.EstoqueBaixo){
@@ -40,9 +42,9 @@
                                 }
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary"></a>
-                            <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info"></a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger"></a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                            <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Características</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Deletar</a>
                         </td>
                     </tr>
                 }

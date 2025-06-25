@@ -23,6 +23,7 @@ namespace MyStockProdutos.Models
         public string Nome { get; set; } = string.Empty;
 
         // Marca do produto
+        [Required(ErrorMessage = "A marca do produto é obrigatória")]
         [StringLength(100, ErrorMessage = "A marca do produto deve ter no máximo 100 caracteres")]
         public string Marca { get; set; } = string.Empty;
 
@@ -50,6 +51,7 @@ namespace MyStockProdutos.Models
         public UnidadeMedida UnidadeMedida { get; set; }
 
         // Estoque mínimo
+        [Required(ErrorMessage = "Estoque mínimo é obrigatório")]
         public int EstoqueMinimo { get; set; } = 5;
 
         // Data de hoje
