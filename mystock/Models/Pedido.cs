@@ -28,5 +28,10 @@ namespace MyStockPedidos.Models
         [Required(ErrorMessage = "O Status do pedido é obrigatório")]
         public StatusPedido Status { get; set; } = StatusPedido.Pendente;
 
+
+        // Lista de itens do pedido
+        public List<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
+        // Calculo total do pedido
+        public decimal ValorTotalPedido => Itens.Sum(item => item.ValorTotalItemPedido);
     }
 }
