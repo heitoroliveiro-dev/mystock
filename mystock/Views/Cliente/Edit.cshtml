@@ -1,0 +1,105 @@
+@using MyStockClientes.Models
+@model MyStockClientes.Models.Cliente
+@{
+    ViewData["Title"] = "Editar Cliente";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<br>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id"/>
+
+<div class="form-group mb-3">
+                <label asp-for="NomeRazaoSocial" class="control-label">Nome</label>
+                <input asp-for="NomeRazaoSocial" class="form-control"/>
+                <span asp-validation-for="NomeRazaoSocial" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Tipo" class="control-label">Tipo</label>
+                <select asp-for="Tipo" class="form-control" asp-items="ViewBag.Tipos"></select>
+                <span asp-validation-for="Tipo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CpfCnpj" class="control-label">CPF/CNPJ</label>
+                <input asp-for="CpfCnpj" class="form-control"/>
+                <span asp-validation-for="CpfCnpj" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group mb-3">
+                <label asp-for="Telefone" class="control-label">Telefone</label>
+                <input asp-for="Telefone" class="form-control"/>
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="control-label">E-mail</label>
+                <input asp-for="Email" class="form-control"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group mb-3">
+                <label asp-for="Endereco" class="control-label">Endereço</label>
+                <input asp-for="Endereco" class="form-control"/>
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+
+            <!-- Badge de status -->
+            <div class="form-group mb-3">
+                <div class="d-flex align-items center gap-2">
+                    <label asp-for="Status" class="control-label align-middle">Status</label>
+                    <input asp-for="Status" class="form-control" type="hidden"/>
+                    <span id="statusBadge"
+                        class="badge fs-6 px-3 py-2 @(Model.Status == StatusCliente.Ativo ? "bg-success" : "bg-secondary")"
+                        style="cursor:pointer"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalStatus"
+                        title="Clique para alterar o status do cliente">
+                        @(Model.Status == StatusCliente.Ativo ? "Ativo" : "Inativo")
+                        <i class="bi bi-arrow-repeat ms-1"></i>
+                    </span>                    
+                </div>
+            </div>  
+            <span asp-validation-for="Status" class="text-danger"></span>
+            <br>
+            <hr class="my-4">
+            <div class="form-group text-center">
+                <button type="submit" value="Salvar" class="btn btn-success">Salvar alterações</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </div>            
+        </form>
+    </div>
+</div>
+
+<!-- Modal de confirmação para alterar status -->
+<div class="modal fade" id="modalStatus" tabindex="-1" aria-labelledby="modalStatusLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalStatusLabel">Alterar Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja alterar o status do cliente?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form id="formStatus" method="post" asp-action="AlterarStatus" asp-route-id="@Model.Id" style="display:inline;">
+            <button type="submit" class="btn btn-warning">Sim, alterar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
