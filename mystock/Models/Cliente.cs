@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Primitives;
 
-namespace MyStockClientes
+namespace MyStockClientes.Models
 {
 
     public enum TipoCliente
@@ -119,6 +119,10 @@ namespace MyStockClientes
         // Status do cliente
         [Required(ErrorMessage = "O status do cliente é obrigatório")]
         public StatusCliente Status { get; set; } = StatusCliente.Ativo;
+
+
+        // Data de cadastro do cliente
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
 
         // Esta classe IEnumerable<ValidationResult> é usada para validar o modelo Cliente.
         // Ela implementa a interface IValidatableObject, que permite realizar validações personalizadas
