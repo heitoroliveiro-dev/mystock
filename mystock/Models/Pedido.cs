@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using MyStockClientes;
+using MyStockClientes.Models;
 
 namespace MyStockPedidos.Models
 {
